@@ -11,15 +11,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const coinsEarnDisplay = document.getElementById("coinsEarn");
     const tapCounter = document.getElementById("tapCounter");
 
-    const loadingVideo = document.getElementById("loadingVideo");
-
-    loadingVideo.addEventListener('ended', function() {
-        setTimeout(() => {
-            loadingScreen.style.display = "none";
-            mainScreen.style.display = "block";
-            updateDisplay();
-        }, 4000); // Загрузка экрана на 4 секунды
-    });
+    setTimeout(() => {
+        loadingScreen.style.display = "none";
+        mainScreen.style.display = "block";
+        updateDisplay();
+    }, 4000); // Загрузка экрана на 4 секунды
 
     const settingsButton = document.getElementById("settingsButton");
     const earnButton = document.getElementById("earnButton");
