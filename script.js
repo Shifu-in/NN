@@ -3,8 +3,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const mainScreen = document.getElementById("mainScreen");
     const miningScreen = document.getElementById("miningScreen");
     const characterTapScreen = document.getElementById("characterTapScreen");
+    const earnScreen = document.getElementById("earnScreen");
     const levelDisplay = document.getElementById("level");
     const coinsDisplay = document.getElementById("coins");
+    const levelEarnDisplay = document.getElementById("levelEarn");
+    const coinsEarnDisplay = document.getElementById("coinsEarn");
     const tapCounter = document.getElementById("tapCounter");
 
     setTimeout(() => {
@@ -22,8 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const gymButton = document.getElementById("gymButton");
     const workButton = document.getElementById("workButton");
 
-    const taskList = document.getElementById("taskList");
-    const taskItems = document.getElementById("taskItems");
+    const taskItemsEarn = document.getElementById("taskItemsEarn");
+    const backToMainFromEarnButton = document.getElementById("backToMainFromEarnButton");
 
     const startMiningButton = document.getElementById("startMiningButton");
     const stopMiningButton = document.getElementById("stopMiningButton");
@@ -54,6 +57,8 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateDisplay() {
         levelDisplay.textContent = `Level: ${userData.level}`;
         coinsDisplay.textContent = `Coins: ${userData.coins}`;
+        levelEarnDisplay.textContent = `Level: ${userData.level}`;
+        coinsEarnDisplay.textContent = `Coins: ${userData.coins}`;
         tapCounter.textContent = userData.taps;
     }
 
@@ -69,8 +74,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     earnButton.addEventListener("click", function() {
-        taskList.style.display = "block";
-        loadTasks();
+        mainScreen.style.display = "none";
+        earnScreen.style.display = "block";
+        loadTasksEarn();
     });
 
     propertiesButton.addEventListener("click", function() {
@@ -95,6 +101,11 @@ document.addEventListener("DOMContentLoaded", function() {
         mainScreen.style.display = "block";
     });
 
+    backToMainFromEarnButton.addEventListener("click", function() {
+        earnScreen.style.display = "none";
+        mainScreen.style.display = "block";
+    });
+
     backToMainButton.addEventListener("click", function() {
         characterTapScreen.style.display = "none";
         mainScreen.style.display = "block";
@@ -111,25 +122,27 @@ document.addEventListener("DOMContentLoaded", function() {
     tapCharacterImage.addEventListener("click", function() {
         userData.taps += 1;
         userData.coins += 1; // Награда за каждый тап
+        showAnimation("+1 XP", tapCharacterImage.offsetLeft, tapCharacterImage.offsetTop, 'xpAnimation');
+        showAnimation("+1 Coin", tapCharacterImage.offsetLeft + 50, tapCharacterImage.offsetTop, 'coinAnimation');
         updateDisplay();
         saveUserData();
     });
 
-    function loadTasks() {
+    function loadTasksEarn() {
         const tasks = [
             { name: "Subscribe to Channel 1", reward: 10 },
             { name: "Subscribe to Channel 2", reward: 20 },
             { name: "Subscribe to Channel 3", reward: 30 }
         ];
 
-        taskItems.innerHTML = '';
+        taskItemsEarn.innerHTML = '';
         tasks.forEach(task => {
             const li = document.createElement("li");
             li.textContent = `${task.name} - Reward: ${task.reward} coins`;
             li.addEventListener("click", function() {
                 completeTask(task);
             });
-            taskItems.appendChild(li);
+            taskItemsEarn.appendChild(li);
         });
     }
 
@@ -139,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
         checkLevelUp();
         saveUserData();
         updateDisplay();
-        taskList.style.display = "none";
+        taskItemsEarn.style.display = "none";
     }
 
     function checkLevelUp() {
@@ -159,5 +172,17 @@ document.addEventListener("DOMContentLoaded", function() {
             updateDisplay();
             miningStatus.textContent = `Mining completed! You earned ${reward} coins`;
         }, duration * 1000);
+    }
+
+    function showAnimation(text, x, y, id) {
+        const animation = document.createElement('div');
+        animation.id = id;
+        animation.style.left = x + 'px';
+        animation.style.top = y + 'px';
+        animation.textContent = text;
+        document.body.appendChild(animation);
+        setTimeout(() => {
+            document.body.removeChild(animation);
+        }, 1000);
     }
 });
