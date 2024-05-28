@@ -1,155 +1,109 @@
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #000;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-}
+document.addEventListener("DOMContentLoaded", function() {
+    const loadingScreen = document.getElementById("loadingScreen");
+    const mainScreen = document.getElementById("mainScreen");
+    const miningScreen = document.getElementById("miningScreen");
+    const characterTapScreen = document.getElementById("characterTapScreen");
+    const earnScreen = document.getElementById("earnScreen");
+    const levelDisplay = document.getElementById("level");
+    const coinsDisplay = document.getElementById("coins");
+    const levelEarnDisplay = document.getElementById("levelEarn");
+    const coinsEarnDisplay = document.getElementById("coinsEarn");
+    const tapCounter = document.getElementById("tapCounter");
 
-#loadingScreen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-}
+    setTimeout(() => {
+        loadingScreen.style.display = "none";
+        mainScreen.style.display = "block";
+        updateDisplay();
+    }, 3000); // Загрузка экрана на 3 секунды
 
-#mainScreen, #miningScreen, #characterTapScreen, #earnScreen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    max-width: 390px; /* max width for iPhone 14 Pro */
-    padding: 10px;
-    box-sizing: border-box;
-}
+    const playButton = document.getElementById("playButton");
+    const settingsButton = document.getElementById("settingsButton");
+    const earnButton = document.getElementById("earnButton");
 
-#gameContainer {
-    position: relative;
-    width: 100%;
-    height: auto;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    const propertiesButton = document.getElementById("propertiesButton");
+    const garageButton = document.getElementById("garageButton");
+    const gymButton = document.getElementById("gymButton");
+    const workButton = document.getElementById("workButton");
 
-#roomImage {
-    width: 100%;
-    height: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
+    const taskList = document.getElementById("taskList");
+    const taskItems = document.getElementById("taskItems");
 
-#characterContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
+    const taskItemsEarn = document.getElementById("taskItemsEarn");
+    const backToMainFromEarnButton = document.getElementById("backToMainFromEarnButton");
 
-#characterImage {
-    height: 800px;
-    cursor: pointer;
-    position: absolute;
-    bottom: 50px; /* position character */
-}
+    const startMiningButton = document.getElementById("startMiningButton");
+    const stopMiningButton = document.getElementById("stopMiningButton");
+    const miningStatus = document.getElementById("miningStatus");
+    const backButton = document.getElementById("backButton");
 
-.stats {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-bottom: 10px;
-}
+    const tapCharacterImage = document.getElementById("characterImage");
+    const backToMainButton = document.getElementById("backToMainButton");
 
-.stats span {
-    font-size: 18px;
-}
+    let userData = {
+        level: 1,
+        experience: 0,
+        coins: 0,
+        taps: 0
+    };
 
-.button-container {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-bottom: 10px;
-}
+    function loadUserData() {
+        const storedData = localStorage.getItem('userData');
+        if (storedData) {
+            userData = JSON.parse(storedData);
+        }
+    }
 
-.button {
-    padding: 10px 15px;
-    cursor: pointer;
-    background-color: #444;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    flex: 1;
-    margin: 5px;
-}
+    function saveUserData() {
+        localStorage.setItem('userData', JSON.stringify(userData));
+    }
 
-.button:hover {
-    background-color: #666;
-}
+    function updateDisplay() {
+        levelDisplay.textContent = `Level: ${userData.level}`;
+        coinsDisplay.textContent = `Coins: ${userData.coins}`;
+        levelEarnDisplay.textContent = `Level: ${userData.level}`;
+        coinsEarnDisplay.textContent = `Coins: ${userData.coins}`;
+        tapCounter.textContent = userData.taps;
+    }
 
-#taskList {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-top: 10px;
-}
+    loadUserData();
 
-#taskItems {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-}
+    playButton.addEventListener("click", function() {
+        characterTapScreen.style.display = "block";
+        mainScreen.style.display = "none";
+    });
 
-#taskItems li {
-    background: #333;
-    padding: 10px;
-    margin: 5px 0;
-    cursor: pointer;
-}
+    settingsButton.addEventListener("click", function() {
+        alert("Settings are not implemented yet.");
+    });
 
-#taskItemsEarn {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-    margin-top: 10px;
-}
+    earnButton.addEventListener("click", function() {
+        mainScreen.style.display = "none";
+        earnScreen.style.display = "block";
+        loadTasksEarn();
+    });
 
-#taskItemsEarn li {
-    background: #222;
-    padding: 10px;
-    margin: 5px 0;
-    cursor: pointer;
-}
+    propertiesButton.addEventListener("click", function() {
+        alert("Properties are not implemented yet.");
+    });
 
-#tapCounter {
-    font-size: 20px;
-    margin: 10px 0;
-}
+    garageButton.addEventListener("click", function() {
+        alert("Garage is not implemented yet.");
+    });
 
-#earnScreen {
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-}
+    gymButton.addEventListener("click", function() {
+        alert("Gym is not implemented yet.");
+    });
 
-#xpAnimation, #coinAnimation {
-    position: absolute;
-    font-size: 16px;
-    animation: fadeOut 1s forwards;
-}
+    workButton.addEventListener("click", function() {
+        mainScreen.style.display = "none";
+        miningScreen.style.display = "block";
+    });
 
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; transform: translateY(-50px); }
-}
+    backButton.addEventListener("click", function() {
+        miningScreen.style.display = "none";
+        mainScreen.style.display = "block";
+    });
+
+    backToMainFromEarnButton.addEventListener("click", function() {
+        earnScreen.style.display = "none";
+        main
