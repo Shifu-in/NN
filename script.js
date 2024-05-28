@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
         loadingScreen.style.display = "none";
         mainScreen.style.display = "block";
         updateDisplay();
-    }, 4000); // Загрузка экрана на 4 секунды
+    }, 3000); // Загрузка экрана на 3 секунды
 
     const settingsButton = document.getElementById("settingsButton");
     const earnButton = document.getElementById("earnButton");
