@@ -1,10 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
     const loadingScreen = document.getElementById("loadingScreen");
     const mainScreen = document.getElementById("mainScreen");
+    const levelDisplay = document.getElementById("level");
+    const coinsDisplay = document.getElementById("coins");
 
     setTimeout(() => {
         loadingScreen.style.display = "none";
         mainScreen.style.display = "block";
+        updateDisplay();
     }, 3000); // Загрузка экрана на 3 секунды
 
     const playButton = document.getElementById("playButton");
@@ -34,6 +37,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function saveUserData() {
         localStorage.setItem('userData', JSON.stringify(userData));
+    }
+
+    function updateDisplay() {
+        levelDisplay.textContent = `Level: ${userData.level}`;
+        coinsDisplay.textContent = `Coins: ${userData.coins}`;
     }
 
     loadUserData();
@@ -90,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
         userData.experience += task.reward;
         checkLevelUp();
         saveUserData();
+        updateDisplay();
         alert(`Task completed: ${task.name}`);
         taskList.style.display = "none";
     }
@@ -109,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const reward = duration / 3600 * 10; // Награда за каждый час майнинга
             userData.coins += reward;
             saveUserData();
+            updateDisplay();
             alert(`Mining completed! You earned ${reward} coins`);
         }, duration * 1000);
     }
