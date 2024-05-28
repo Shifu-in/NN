@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const miningStatus = document.getElementById("miningStatus");
     const backButton = document.getElementById("backButton");
 
-    const tapCharacterImage = document.getElementById("tapCharacterImage");
+    const tapCharacterImage = document.getElementById("characterImage");
     const backToMainButton = document.getElementById("backToMainButton");
 
     let userData = {
