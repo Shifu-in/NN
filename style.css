@@ -19,11 +19,6 @@ body {
     width: 100%;
 }
 
-#loadingScreen img {
-    width: 100px; /* Размер GIF-изображения */
-    height: 100px; /* Размер GIF-изображения */
-}
-
 #mainScreen, #miningScreen, #characterTapScreen, #earnScreen, #comingSoonScreen {
     display: flex;
     flex-direction: column;
