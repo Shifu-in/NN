@@ -11,11 +11,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const coinsEarnDisplay = document.getElementById("coinsEarn");
     const tapCounter = document.getElementById("tapCounter");
 
-    setTimeout(() => {
-        loadingScreen.style.display = "none";
-        mainScreen.style.display = "block";
-        updateDisplay();
-    }, 3000); // Загрузка экрана на 3 секунды
+    const loadingVideo = document.getElementById("loadingVideo");
+
+    loadingVideo.addEventListener('ended', function() {
+        setTimeout(() => {
+            loadingScreen.style.display = "none";
+            mainScreen.style.display = "block";
+            updateDisplay();
+        }, 4000); // Загрузка экрана на 4 секунды
+    });
 
     const settingsButton = document.getElementById("settingsButton");
     const earnButton = document.getElementById("earnButton");
@@ -117,4 +121,72 @@ document.addEventListener("DOMContentLoaded", function() {
     tapCharacterImage.addEventListener("click", function() {
         userData.taps += 1;
         userData.coins += 1; // Награда за каждый тап
-        showAnimation("+1 XP", tapCharacterImage.
+        showAnimation("+1 XP", tapCharacterImage.offsetLeft, tapCharacterImage.offsetTop, 'xpAnimation');
+        showAnimation("+1 Coin", tapCharacterImage.offsetLeft + 50, tapCharacterImage.offsetTop, 'coinAnimation');
+        updateDisplay();
+        saveUserData();
+    });
+
+    function loadTasksEarn() {
+        const tasks = [
+            { name: "Subscribe to Channel 1", reward: 10 },
+            { name: "Subscribe to Channel 2", reward: 20 },
+            { name: "Subscribe to Channel 3", reward: 30 }
+        ];
+
+        taskItemsEarn.innerHTML = '';
+        tasks.forEach(task => {
+            const li = document.createElement("li");
+            li.textContent = `${task.name} - Reward: ${task.reward} coins`;
+            li.addEventListener("click", function() {
+                completeTask(task);
+            });
+            taskItemsEarn.appendChild(li);
+        });
+    }
+
+    function completeTask(task) {
+        userData.coins += task.reward;
+        userData.experience += task.reward;
+        checkLevelUp();
+        saveUserData();
+        updateDisplay();
+        taskItemsEarn.style.display = "none";
+    }
+
+    function checkLevelUp() {
+        const experienceNeeded = userData.level * 100;
+        if (userData.experience >= experienceNeeded) {
+            userData.level += 1;
+            userData.experience -= experienceNeeded;
+        }
+    }
+
+    function startMining(duration) {
+        miningStatus.textContent = `Mining started for ${duration / 3600} hours`;
+        setTimeout(() => {
+            const reward = duration / 3600 * 10; // Награда за каждый час майнинга
+            userData.coins += reward;
+            saveUserData();
+            updateDisplay();
+            miningStatus.textContent = `Mining completed! You earned ${reward} coins`;
+        }, duration * 1000);
+    }
+
+    function showAnimation(text, x, y, id) {
+        const animation = document.createElement('div');
+        animation.id = id;
+        animation.style.left = x + 'px';
+        animation.style.top = y + 'px';
+        animation.textContent = text;
+        document.body.appendChild(animation);
+        setTimeout(() => {
+            document.body.removeChild(animation);
+        }, 1000);
+    }
+
+    function showComingSoon() {
+        mainScreen.style.display = "none";
+        comingSoonScreen.style.display = "block";
+    }
+});
