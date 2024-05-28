@@ -19,13 +19,14 @@ body {
     width: 100%;
 }
 
-#mainScreen, #miningScreen, #characterTapScreen, #earnScreen {
+#mainScreen, #miningScreen, #characterTapScreen, #earnScreen, #comingSoonScreen {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     height: 100%;
-    max-width: 390px; /* max width for iPhone 14 Pro */
+    max-width: 1080px; /* max width for the background image */
+    max-height: 1920px; /* max height for the background image */
     padding: 10px;
     box-sizing: border-box;
 }
@@ -37,7 +38,7 @@ body {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* Changed to flex-end to align character at the bottom */
+    align-items: flex-end; /* align character at the bottom */
 }
 
 #roomImage {
@@ -142,6 +143,19 @@ body {
     background-color: #000;
     color: #fff;
     text-align: center;
+}
+
+#comingSoonScreen {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+}
+
+.coming-soon-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #xpAnimation, #coinAnimation {
