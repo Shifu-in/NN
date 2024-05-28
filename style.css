@@ -8,6 +8,7 @@ body {
     background-color: #000;
     color: #fff;
     font-family: Arial, sans-serif;
+    overflow: hidden;
 }
 
 #loadingScreen {
@@ -18,34 +19,48 @@ body {
     width: 100%;
 }
 
-#mainScreen {
+#mainScreen, #miningScreen, #characterTapScreen {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    max-width: 390px; /* max width for iPhone 14 Pro */
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .stats {
     display: flex;
     justify-content: space-around;
-    width: 80%;
-    margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .stats span {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .button-container {
     display: flex;
     justify-content: space-around;
-    width: 80%;
-    margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .button {
-    width: 60px;
+    padding: 10px 15px;
     cursor: pointer;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    flex: 1;
+    margin: 5px;
+}
+
+.button:hover {
+    background-color: #666;
 }
 
 .game-container {
@@ -54,13 +69,13 @@ body {
     align-items: center;
 }
 
-#characterImage {
-    width: 200px;
-    margin-bottom: 20px;
+#characterImage, #tapCharacterImage {
+    width: 150px;
+    margin-bottom: 10px;
 }
 
 #roomContainer {
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -73,8 +88,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
-    margin-top: 20px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 #taskItems {
@@ -88,4 +103,9 @@ body {
     padding: 10px;
     margin: 5px 0;
     cursor: pointer;
+}
+
+#tapCounter {
+    font-size: 20px;
+    margin: 10px 0;
 }
