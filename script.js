@@ -1,8 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
     const loadingScreen = document.getElementById("loadingScreen");
     const mainScreen = document.getElementById("mainScreen");
+    const miningScreen = document.getElementById("miningScreen");
+    const characterTapScreen = document.getElementById("characterTapScreen");
     const levelDisplay = document.getElementById("level");
     const coinsDisplay = document.getElementById("coins");
+    const tapCounter = document.getElementById("tapCounter");
 
     setTimeout(() => {
         loadingScreen.style.display = "none";
@@ -22,10 +25,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const taskList = document.getElementById("taskList");
     const taskItems = document.getElementById("taskItems");
 
+    const startMiningButton = document.getElementById("startMiningButton");
+    const stopMiningButton = document.getElementById("stopMiningButton");
+    const miningStatus = document.getElementById("miningStatus");
+    const backButton = document.getElementById("backButton");
+
+    const tapCharacterImage = document.getElementById("tapCharacterImage");
+    const backToMainButton = document.getElementById("backToMainButton");
+
     let userData = {
         level: 1,
         experience: 0,
-        coins: 0
+        coins: 0,
+        taps: 0
     };
 
     function loadUserData() {
@@ -42,16 +54,18 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateDisplay() {
         levelDisplay.textContent = `Level: ${userData.level}`;
         coinsDisplay.textContent = `Coins: ${userData.coins}`;
+        tapCounter.textContent = userData.taps;
     }
 
     loadUserData();
 
     playButton.addEventListener("click", function() {
-        alert("Play button clicked");
+        characterTapScreen.style.display = "block";
+        mainScreen.style.display = "none";
     });
 
     settingsButton.addEventListener("click", function() {
-        alert("Settings button clicked");
+        alert("Settings are not implemented yet.");
     });
 
     earnButton.addEventListener("click", function() {
@@ -60,19 +74,45 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     propertiesButton.addEventListener("click", function() {
-        alert("Properties button clicked");
+        alert("Properties are not implemented yet.");
     });
 
     garageButton.addEventListener("click", function() {
-        alert("Garage button clicked");
+        alert("Garage is not implemented yet.");
     });
 
     gymButton.addEventListener("click", function() {
-        alert("Gym button clicked");
+        alert("Gym is not implemented yet.");
     });
 
     workButton.addEventListener("click", function() {
+        mainScreen.style.display = "none";
+        miningScreen.style.display = "block";
+    });
+
+    backButton.addEventListener("click", function() {
+        miningScreen.style.display = "none";
+        mainScreen.style.display = "block";
+    });
+
+    backToMainButton.addEventListener("click", function() {
+        characterTapScreen.style.display = "none";
+        mainScreen.style.display = "block";
+    });
+
+    startMiningButton.addEventListener("click", function() {
         startMining(8 * 60 * 60); // Майнинг на 8 часов
+    });
+
+    stopMiningButton.addEventListener("click", function() {
+        miningStatus.textContent = "Mining stopped";
+    });
+
+    tapCharacterImage.addEventListener("click", function() {
+        userData.taps += 1;
+        userData.coins += 1; // Награда за каждый тап
+        updateDisplay();
+        saveUserData();
     });
 
     function loadTasks() {
@@ -99,7 +139,6 @@ document.addEventListener("DOMContentLoaded", function() {
         checkLevelUp();
         saveUserData();
         updateDisplay();
-        alert(`Task completed: ${task.name}`);
         taskList.style.display = "none";
     }
 
@@ -108,18 +147,17 @@ document.addEventListener("DOMContentLoaded", function() {
         if (userData.experience >= experienceNeeded) {
             userData.level += 1;
             userData.experience -= experienceNeeded;
-            alert(`Level up! You are now level ${userData.level}`);
         }
     }
 
     function startMining(duration) {
-        alert(`Mining started for ${duration / 3600} hours`);
+        miningStatus.textContent = `Mining started for ${duration / 3600} hours`;
         setTimeout(() => {
             const reward = duration / 3600 * 10; // Награда за каждый час майнинга
             userData.coins += reward;
             saveUserData();
             updateDisplay();
-            alert(`Mining completed! You earned ${reward} coins`);
+            miningStatus.textContent = `Mining completed! You earned ${reward} coins`;
         }, duration * 1000);
     }
 });
