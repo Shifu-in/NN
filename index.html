@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDLE Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loadingScreen">
+        <img src="assets/animations/LIFE_-копия.gif_1.gif" alt="Loading...">
+    </div>
+    <div id="mainScreen" style="display: none;">
+        <div class="stats">
+            <span id="level">Level: 1</span>
+            <span id="coins">Coins: 0</span>
+        </div>
+        <div class="button-container">
+            <img src="assets/images/play.png" id="playButton" class="button">
+            <img src="assets/images/settings.png" id="settingsButton" class="button">
+            <img src="assets/images/film_fest.png" id="earnButton" class="button">
+        </div>
+        <div class="game-container">
+            <img src="assets/images/1.png" id="characterImage">
+            <div id="roomContainer">
+                <img src="assets/images/3.jpg" id="roomImage">
+            </div>
+        </div>
+        <div id="navigationButtons" class="button-container">
+            <img src="assets/images/properties.png" id="propertiesButton" class="button">
+            <img src="assets/images/garage.png" id="garageButton" class="button">
+            <img src="assets/images/gym.png" id="gymButton" class="button">
+            <img src="assets/images/work.png" id="workButton" class="button">
+        </div>
+        <div id="taskList" style="display: none;">
+            <h2>Tasks</h2>
+            <ul id="taskItems"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
