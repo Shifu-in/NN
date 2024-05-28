@@ -24,9 +24,41 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 100%;
     max-width: 390px; /* max width for iPhone 14 Pro */
     padding: 10px;
     box-sizing: border-box;
+}
+
+#gameContainer {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#roomImage {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#characterContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#characterImage {
+    height: 300px;
+    cursor: pointer;
 }
 
 .stats {
@@ -61,29 +93,6 @@ body {
 
 .button:hover {
     background-color: #666;
-}
-
-.game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#characterImage, #tapCharacterImage {
-    width: 100px;
-    margin-bottom: 10px;
-}
-
-#roomContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-}
-
-#roomImage {
-    width: 100%;
-    height: auto;
 }
 
 #taskList {
